@@ -1,6 +1,9 @@
+#game where player is "x" and computer plays as "o"
+#Computer makes strategic moves to win
 from tkinter import*
 import random
 root = Tk()
+#starting set up for game, with all of the possible patterns
 game = ['-','-','-','-','-','-','-','-','-']
 wins = [[0,0,0,1,1,1,1,1,1],[0,1,1,0,1,1,0,1,1],
 [0,1,1,1,0,1,1,1,0],[1,0,1,1,0,1,1,0,1],
@@ -21,7 +24,7 @@ def play(pn,p):
     game[p] = "x"
     pn.config(text= 'x', state=DISABLED)
     print(game)
-    #check if x has won
+    #check if x has won before next turn
     winner = ["x"]
     w=0
     for s in winner:
@@ -95,7 +98,8 @@ def play(pn,p):
                 if game[i]=='-':
                     x_close_i = i
                     break
-    #picking which route to take, win, block, or random
+    #x picking which route to take to win (based on "close win for x"), block (based on "close win for o")
+    #picks random route within possible win routes remaining if no close wins for either side
     if o_close_i!=0:
         game[o_close_i] = 'o'
         n = spot[o_close_i]
@@ -140,7 +144,7 @@ def play(pn,p):
                     n = spot[i]
                     n.config(text="o", state=DISABLED)
                     break
-    #check if o has won
+    #check if o has won before x goes again
     winner = ["o"]
     if w==0:
         for s in winner:
